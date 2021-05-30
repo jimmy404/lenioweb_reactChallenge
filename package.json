@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npx eslint ./ && next dev",
+    "build": "npx eslint ./ && next build",
+    "start": "npx eslint ./ && next start",
     "format": "prettier --write --plugin-search-dir=. ./**/*.js"
   },
   "dependencies": {
@@ -14,6 +14,10 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.27.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-svelte3": "^3.2.0",
     "prettier": "^2.3.0",
     "prettier-plugin-svelte": "^2.3.0"
   }
