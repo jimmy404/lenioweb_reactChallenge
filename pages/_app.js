@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
 }
 
 MyApp.propTypes = {
-  Component: PropTypes.ReactNode,
+  Component: PropTypes.func,
   pageProps: PropTypes.object
 };
 
