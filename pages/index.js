@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 import Head from 'next/head';
 import Search from '../components/Search/Search';
+import Card from '../components/Card/Card';
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -40,9 +41,10 @@ export async function getStaticProps() {
   );
 
   const heroInfo = await heroData.json();
+  console.log(heroInfo);
 
   return {
-    props: { data: heroInfo }
+    props: { data: character }
   };
 }
 
@@ -56,7 +58,14 @@ const Home = ({ data }) => {
       </Head>
       <GlobalStyle />
       <Search />
-      <pre>{JSON.stringify(data?.data?.results)}</pre>
+      <Card
+        onClick={() => alert('Click container')}
+        onStarClick={() => alert('Click Star')}
+        title={data?.name}
+        favorite={false}
+        url={data?.thumbnail?.path + '.' + data?.thumbnail?.extension}
+      />
+      <pre>{JSON.stringify(data?.thumbnail?.path)}</pre>
     </MainContainer>
   );
 };
