@@ -65,11 +65,11 @@ const Home = ({ data }) => {
 };
 
 Home.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.array
 };
 
 Home.defaultProps = {
-  data: {}
+  data: []
 };
 
 export default Home;
