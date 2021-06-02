@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useAppContext } from '../context/AppContext';
 
 import Head from 'next/head';
 import Search from '../components/Search/Search';
@@ -18,37 +19,74 @@ const MainContainer = styled.div`
   width: 100vw;
 `;
 
-export async function getStaticProps() {
-  const randomCharacter = () => {
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    return characters[Math.floor(Math.random() * characters.length)];
-  };
+// export async function getStaticProps() {
+//   const randomCharacter = () => {
+//     let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+//     return characters[Math.floor(Math.random() * characters.length)];
+//   };
 
-  const res = await fetch(
-    `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-  );
+//   const res = await fetch(
+//     `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+//   );
 
-  const data = await res.json();
+//   const data = await res.json();
 
-  const results = data?.data?.results || [];
+//   const results = data?.data?.results || [];
 
-  const character = results[Math.floor(Math.random() * results.length)] || {};
+//   const character = results[Math.floor(Math.random() * results.length)] || {};
 
-  const heroData = await fetch(
-    `https://gateway.marvel.com:443/v1/public/characters/${
-      '1011010' || character.id
-    }/comics?ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-  );
+//   const heroData = await fetch(
+//     `https://gateway.marvel.com:443/v1/public/characters/${
+//       '1011010' || character.id
+//     }/comics?ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+//   );
 
-  const heroInfo = await heroData.json();
-  console.log(heroInfo);
+//   const heroInfo = await heroData.json();
+//   console.log(heroInfo);
 
-  return {
-    props: { data: results }
-  };
-}
+//   return {
+//     props: { data: results }
+//   };
+// }
 
 const Home = ({ data }) => {
+  const { state, setState } = useAppContext();
+
+  useEffect(() => {
+    const randomCharacter = () => {
+      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      return characters[Math.floor(Math.random() * characters.length)];
+    };
+
+    const res = fetch(
+      `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+    ).then((res) => {
+      const data = res;
+      console.log(data);
+
+      // const results = data?.data?.results || [];
+
+      // const character =
+      //   results[Math.floor(Math.random() * results.length)] || {};
+
+      // const heroData = fetch(
+      //   `https://gateway.marvel.com:443/v1/public/characters/${
+      //     '1011010' || character.id
+      //   }/comics?ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+      // ).then((res) => {
+      //   setState(res);
+      // });
+
+      // const heroInfo = JSON.parse(heroData);
+      // console.log(heroInfo);
+    });
+    console.log(res);
+
+    // return {
+    //   props: { data: results }
+    // };
+  }, []);
+
   return (
     <MainContainer>
       <Head>
@@ -58,8 +96,10 @@ const Home = ({ data }) => {
       </Head>
       <GlobalStyle />
       <Search />
+      <pre>{JSON.stringify(state)}</pre>
+      <button onClick={() => setState({ asd: 'chau' })}>Change</button>
       <CardGrid heroes={data} />
-      <pre>{JSON.stringify(data?.thumbnail?.path)}</pre>
+      {/* <pre>{JSON.stringify(data?.thumbnail?.path)}</pre> */}
     </MainContainer>
   );
 };
