@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  let sharedState = {};
+  let sharedState = [
+    {
+      heroes: []
+    }
+  ];
 
   const [state, setState] = useState(sharedState);
 
