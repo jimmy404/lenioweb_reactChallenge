@@ -6,7 +6,6 @@ import Star from '../Star/Star';
 
 const CardContainer = styled.div`
   align-items: flex-end;
-  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -18,6 +17,7 @@ const CardContainer = styled.div`
 
   ${(props) => css`
     background-image: url(${props.url});
+    background-position: ${props.imgNotFound ? 'bottom left' : 'center'};
   `};
 `;
 
@@ -39,8 +39,10 @@ const Card = ({ title, favorite, url, onClick, onStarClick }) => {
     return onStarClick();
   };
 
+  const imgNotFound = url.indexOf('image_not_available') > -1;
+
   return (
-    <CardContainer url={url} onClick={onClick}>
+    <CardContainer url={url} onClick={onClick} imgNotFound={imgNotFound}>
       <StarContainer>
         <Star selected={favorite} onClick={handleStarClick} />
       </StarContainer>
