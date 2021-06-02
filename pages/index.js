@@ -1,6 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+
 import styled, { createGlobalStyle } from 'styled-components';
+import axios from 'axios';
+
 import { useAppContext } from '../context/AppContext';
 
 import Head from 'next/head';
@@ -19,38 +21,37 @@ const MainContainer = styled.div`
   width: 100vw;
 `;
 
-export async function getStaticProps() {
-  const randomCharacter = () => {
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    return characters[Math.floor(Math.random() * characters.length)];
-  };
-
-  const res = await fetch(
-    `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-  );
-
-  const data = await res.json();
-
-  const results = data?.data?.results || [];
-
-  const character = results[Math.floor(Math.random() * results.length)] || {};
-
-  const heroData = await fetch(
-    `https://gateway.marvel.com:443/v1/public/characters/${
-      '1011010' || character.id
-    }/comics?ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-  );
-
-  const heroInfo = await heroData.json();
-  console.log(heroInfo);
-
-  return {
-    props: { data: results }
-  };
-}
-
-const Home = ({ data }) => {
+const Home = () => {
   const { state, setState } = useAppContext();
+
+  const getRandomCharacter = (heroesList) => {
+    console.log(heroesList);
+    return heroesList[Math.floor(Math.random() * heroesList.length)] || {};
+  };
+
+  useEffect(() => {
+    const randomCharacter = () => {
+      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      return characters[Math.floor(Math.random() * characters.length)];
+    };
+
+    const res = axios
+      .get(
+        `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+      )
+      .then((res) => {
+        const data = res;
+
+        const results = data?.data?.data?.results || [];
+        console.log(results);
+
+        const character = [getRandomCharacter(results)];
+        console.log(character);
+
+        setState({ heroes: results });
+      });
+    console.log(res);
+  }, []);
 
   return (
     <MainContainer>
@@ -62,19 +63,14 @@ const Home = ({ data }) => {
       <GlobalStyle />
       <Search />
       <pre>{JSON.stringify(state)}</pre>
-      <button onClick={() => setState({ testContext: 'test' })}>Change</button>
-      <CardGrid heroes={data} />
-      <pre>{JSON.stringify(data?.thumbnail?.path)}</pre>
+      <button
+        onClick={() => setState({ heroes: [getRandomCharacter(state.heroes)] })}
+      >
+        Pick one
+      </button>
+      <CardGrid heroes={state.heroes} />
     </MainContainer>
   );
-};
-
-Home.propTypes = {
-  data: PropTypes.array
-};
-
-Home.defaultProps = {
-  data: []
 };
 
 export default Home;
