@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useAppContext } from '../context/AppContext';
 
 import Head from 'next/head';
 import Search from '../components/Search/Search';
@@ -49,6 +50,8 @@ export async function getStaticProps() {
 }
 
 const Home = ({ data }) => {
+  const { state, setState } = useAppContext();
+
   return (
     <MainContainer>
       <Head>
@@ -58,6 +61,8 @@ const Home = ({ data }) => {
       </Head>
       <GlobalStyle />
       <Search />
+      <pre>{JSON.stringify(state)}</pre>
+      <button onClick={() => setState({ testContext: 'test' })}>Change</button>
       <CardGrid heroes={data} />
       <pre>{JSON.stringify(data?.thumbnail?.path)}</pre>
     </MainContainer>
