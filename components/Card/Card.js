@@ -13,11 +13,11 @@ const CardContainer = styled.div`
   height: 300px;
   justify-content: space-between;
   padding: 10px;
-  width: 200px;
 
   ${(props) => css`
     background-image: url(${props.url});
     background-position: ${props.imgNotFound ? 'bottom left' : 'center'};
+    width: ${props.isBanner ? '860px' : '200px'};
   `};
 `;
 
@@ -33,7 +33,7 @@ const StarContainer = styled.div`
   width: 20px;
 `;
 
-const Card = ({ title, favorite, url, onClick, onStarClick }) => {
+const Card = ({ title, favorite, url, onClick, onStarClick, isBanner }) => {
   const handleStarClick = (e) => {
     e.stopPropagation();
     return onStarClick();
@@ -42,7 +42,12 @@ const Card = ({ title, favorite, url, onClick, onStarClick }) => {
   const imgNotFound = url.indexOf('image_not_available') > -1;
 
   return (
-    <CardContainer url={url} onClick={onClick} imgNotFound={imgNotFound}>
+    <CardContainer
+      url={url}
+      onClick={onClick}
+      imgNotFound={imgNotFound}
+      isBanner={isBanner}
+    >
       <StarContainer>
         <Star selected={favorite} onClick={handleStarClick} />
       </StarContainer>
@@ -56,7 +61,8 @@ Card.propTypes = {
   onClick: PropTypes.func,
   onStarClick: PropTypes.func,
   title: PropTypes.string,
-  url: PropTypes.string
+  url: PropTypes.string,
+  isBanner: PropTypes.bool
 };
 
 Card.defaultProps = {
@@ -64,7 +70,8 @@ Card.defaultProps = {
   onClick: () => {},
   onStarClick: () => {},
   title: '',
-  url: ''
+  url: '',
+  isBanner: false
 };
 
 export default Card;
