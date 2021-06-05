@@ -47,8 +47,7 @@ const Home = () => {
         const character = getRandomCharacter(results);
         return axios
           .get(
-            `https://gateway.marvel.com:443/v1/public/characters/${character?.id}/comics?limit=100&apikey=6c915ef1dcee8a56cc163a02592aad2d
-        `
+            `https://gateway.marvel.com:443/v1/public/characters/${character?.id}/comics?limit=100&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
           )
           .then((res) => {
             const comicList = res?.data?.data?.results || [];
