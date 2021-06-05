@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
 
 import { useAppContext } from '../context/AppContext';
+import { useRouter } from 'next/router';
 
 import Head from 'next/head';
 import Search from '../components/Search/Search';
@@ -24,8 +25,10 @@ const MainContainer = styled.div`
 const Home = () => {
   const { state, setState } = useAppContext();
 
+  const router = useRouter();
+  const { search = '' } = router.query;
+
   const getRandomCharacter = (heroesList) => {
-    console.log(heroesList);
     return heroesList[Math.floor(Math.random() * heroesList.length)] || {};
   };
 
@@ -35,22 +38,23 @@ const Home = () => {
       return characters[Math.floor(Math.random() * characters.length)];
     };
 
-    const res = axios
+    return axios
       .get(
         `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
       )
       .then((res) => {
-        const data = res;
-
-        const results = data?.data?.data?.results || [];
-        console.log(results);
-
-        const character = [getRandomCharacter(results)];
-        console.log(character);
-
-        setState({ heroes: results });
+        const results = res?.data?.data?.results || [];
+        const character = getRandomCharacter(results);
+        return axios
+          .get(
+            `https://gateway.marvel.com:443/v1/public/characters/${character?.id}/comics?limit=100&apikey=6c915ef1dcee8a56cc163a02592aad2d
+        `
+          )
+          .then((res) => {
+            const comicList = res?.data?.data?.results || [];
+            setState({ heroes: [character, ...comicList] });
+          });
       });
-    console.log(res);
   }, []);
 
   return (
@@ -63,12 +67,7 @@ const Home = () => {
       <GlobalStyle />
       <Search />
       <pre>{JSON.stringify(state)}</pre>
-      <button
-        onClick={() => setState({ heroes: [getRandomCharacter(state.heroes)] })}
-      >
-        Pick one
-      </button>
-      <CardGrid heroes={state.heroes} />
+      <CardGrid heroes={state.heroes} hasBanner={!search} />
     </MainContainer>
   );
 };
