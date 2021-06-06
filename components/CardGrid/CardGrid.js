@@ -20,7 +20,6 @@ const CardGridContainer = styled.ul`
 `;
 
 const CardGridItem = styled.li`
-  background: red;
   ${(props) => css`
     grid-column: ${props.isBanner ? '1 / 5' : 'auto'};
     grid-row: ${props.isBanner ? '1' : 'auto'};
