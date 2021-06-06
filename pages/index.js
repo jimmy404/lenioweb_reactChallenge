@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Search from '../components/Search/Search';
 import CardGrid from '../components/CardGrid/CardGrid';
+import Modal from '../components/Modal/Modal';
+import DetailCard from '../components/DetailCard/DetailCard';
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -47,7 +49,7 @@ const Home = () => {
         const character = getRandomCharacter(results);
         return axios
           .get(
-            `https://gateway.marvel.com:443/v1/public/characters/${character?.id}/comics?limit=100&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+            `https://gateway.marvel.com:443/v1/public/characters/${1009610}/comics?issueNumber=22&limit=100&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
           )
           .then((res) => {
             const comicList = res?.data?.data?.results || [];
@@ -65,12 +67,29 @@ const Home = () => {
       </Head>
       <GlobalStyle />
       <Search />
-      <pre>{JSON.stringify(state)}</pre>
+      <pre style={{ maxWidth: '100vw', overflow: 'auto' }}>
+        {JSON.stringify(state)}
+      </pre>
       {state?.heroes?.length ? (
         <CardGrid heroes={state.heroes} hasBanner={!search} />
       ) : (
         <p>Hero not found, try again</p>
       )}
+      <Modal
+        title={state?.heroes?.[0]?.name}
+        onCloseClick={() => alert('Cierre modal')}
+      >
+        <DetailCard
+          title={state?.heroes?.[2]?.title}
+          url={
+            state?.heroes?.[2]?.thumbnail?.path +
+            '.' +
+            state?.heroes?.[2]?.thumbnail?.extension
+          }
+          description={state?.heroes?.[2]?.description}
+        />
+        {/* {JSON.stringify(state?.heroes?.[2]?.title)} */}
+      </Modal>
     </MainContainer>
   );
 };
