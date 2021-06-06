@@ -7,8 +7,9 @@ const ModalContainer = styled.div`
   border-radius: 4px;
   margin: 0;
   max-height: 80%;
-  max-width: 450px;
+  max-width: 650px;
   min-height: 200px;
+  padding: 0;
   width: 80%;
 `;
 
@@ -25,10 +26,47 @@ const ModalCurtain = styled.div`
   z-index: 100;
 `;
 
-const Modal = ({ children }) => {
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-height: 64px;
+  padding: 16px;
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+`;
+
+const CloseModal = styled.button`
+  align-items: flex-start;
+  background: none;
+  border: none;
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+`;
+
+const ModalContent = styled.section`
+  max-height: calc(80vh - 64px);
+  overflow-y: auto;
+  padding: 16px;
+`;
+
+const Modal = ({ children, title, onCloseClick }) => {
   return (
     <ModalCurtain>
-      <ModalContainer>{children}</ModalContainer>;
+      <ModalContainer>
+        <ModalHeader>
+          <Title>{title}</Title>
+          <CloseModal onClick={onCloseClick}>X</CloseModal>
+        </ModalHeader>
+        <ModalContent>{children}</ModalContent>
+      </ModalContainer>
     </ModalCurtain>
   );
 };
@@ -38,11 +76,15 @@ Modal.propTypes = {
     PropTypes.node,
     PropTypes.func,
     PropTypes.array
-  ])
+  ]),
+  title: PropTypes.string,
+  onCloseClick: PropTypes.func
 };
 
 Modal.defaultProps = {
-  children: null
+  children: null,
+  title: '',
+  onCloseClick: () => {}
 };
 
 export default Modal;
