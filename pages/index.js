@@ -66,7 +66,11 @@ const Home = () => {
       <GlobalStyle />
       <Search />
       <pre>{JSON.stringify(state)}</pre>
-      <CardGrid heroes={state.heroes} hasBanner={!search} />
+      {state?.heroes?.length ? (
+        <CardGrid heroes={state.heroes} hasBanner={!search} />
+      ) : (
+        <p>Hero not found, try again</p>
+      )}
     </MainContainer>
   );
 };
