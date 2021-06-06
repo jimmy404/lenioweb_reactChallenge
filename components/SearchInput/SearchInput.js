@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+import axios from 'axios';
 import styled from 'styled-components';
 
 import { useRouter } from 'next/router';
+import { useAppContext } from '../../context/AppContext';
 
 const SearchInputContainer = styled.div`
   align-items: center;
@@ -38,6 +40,8 @@ const SearchIcon = styled.div`
 `;
 
 const SearchInput = () => {
+  const { setState } = useAppContext();
+
   const router = useRouter();
   const { search = '' } = router.query;
 
@@ -45,6 +49,16 @@ const SearchInput = () => {
 
   useEffect(() => {
     setSearchValue(search);
+    if (search) {
+      axios
+        .get(
+          `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${search}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+        )
+        .then((res) => {
+          const results = res?.data?.data?.results || [];
+          setState({ heroes: results });
+        });
+    }
   }, [search]);
 
   const handleSearch = (e) => {
