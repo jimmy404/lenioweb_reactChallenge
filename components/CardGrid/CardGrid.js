@@ -36,7 +36,7 @@ const CardGrid = ({ heroes, selected, onClick, hasBanner }) => {
         >
           <Card
             isBanner={hasBanner && index === 0}
-            onClick={() => alert('Click container')}
+            onClick={onClick}
             onStarClick={() => alert('Click Star')}
             title={hero?.name || hero?.title}
             favorite={false}

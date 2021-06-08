@@ -53,15 +53,27 @@ const TitleContainer = styled.h3`
   margin: 0;
 `;
 
-const DetailCard = ({ url, title, description, favorite }) => {
+const DetailCard = ({
+  url,
+  title,
+  description,
+  favorite,
+  onCardClick,
+  onStarClick
+}) => {
+  const handleStarClick = (e) => {
+    e.stopPropagation();
+    return onStarClick();
+  };
+
   return (
-    <DetailCardContainer>
+    <DetailCardContainer onClick={onCardClick}>
       <ComicImage url={url} />
       <RigthPanel>
         <MainContainer>
           <TitleContainer>{title}</TitleContainer>
           <StarContainer>
-            <Star selected={favorite} />
+            <Star selected={favorite} onClick={handleStarClick} />
           </StarContainer>
         </MainContainer>
         <DescriptionContainer>{description}</DescriptionContainer>
@@ -74,14 +86,18 @@ DetailCard.propTypes = {
   url: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  favorite: PropTypes.bool
+  favorite: PropTypes.bool,
+  onCardClick: PropTypes.func,
+  onStarClick: PropTypes.func
 };
 
 DetailCard.defaultProps = {
   url: '',
   title: '',
   description: '',
-  favorite: false
+  favorite: false,
+  onCardClick: () => {},
+  onStarClick: () => {}
 };
 
 export default DetailCard;
