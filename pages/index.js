@@ -59,7 +59,6 @@ const Home = () => {
             )
             .then((res) => {
               const comicList = res?.data?.data?.results || [];
-              console.log('El state es: ', state);
               setState({
                 ...state,
                 gridData: [character, ...comicList],
@@ -81,6 +80,21 @@ const Home = () => {
     return setState({ ...state, [key]: favs });
   };
 
+  const fetchComics = (id) => {
+    return axios
+      .get(
+        `https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=100&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+      )
+      .then((res) => {
+        const comicList = res?.data?.data?.results || [];
+        setState({
+          ...state,
+          heroComics: comicList,
+          showModal: true
+        });
+      });
+  };
+
   return (
     <MainContainer>
       <Head>
@@ -90,14 +104,16 @@ const Home = () => {
       </Head>
       <GlobalStyle />
       <Search />
-      <pre style={{ maxWidth: '100vw', overflow: 'auto' }}>
-        {JSON.stringify(state)}
-      </pre>
       {state?.gridData?.length ? (
         <CardGrid
-          onCardClick={() => setState({ ...state, showModal: true })}
+          onCardClick={(id) => fetchComics(id)}
           onStarClick={(id) => setFavorites(id, 'heroesStars')}
-          favs={state.heroesStars}
+          onComicStarClick={(id) => setFavorites(id, 'comicsStars')}
+          favs={
+            search
+              ? state.heroesStars
+              : [...(state?.heroesStars || []), ...(state?.comicsStars || [])]
+          }
           heroes={state.gridData}
           hasBanner={!search}
         />
