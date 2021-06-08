@@ -63,7 +63,7 @@ const SearchInput = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    router.push(searchValue ? `?search=${searchValue}` : '/');
+    router.push(searchValue ? `/?search=${searchValue}` : '/');
   };
 
   const handleChange = (e) => {
