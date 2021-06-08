@@ -116,6 +116,7 @@ const Home = () => {
           }
           heroes={state.gridData}
           hasBanner={!search}
+          filterByFavorites={state.filterByFavorites}
         />
       ) : (
         <p>Hero not found, try again</p>
