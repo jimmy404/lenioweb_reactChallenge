@@ -6,7 +6,12 @@ const AppContext = createContext();
 export function AppWrapper({ children }) {
   let sharedState = [
     {
-      heroes: []
+      gridData: [],
+      heroComics: [],
+      heroesStars: [],
+      comicsStars: [],
+      showModal: false,
+      theme: ''
     }
   ];
 
