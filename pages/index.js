@@ -10,7 +10,7 @@ import Head from 'next/head';
 import Search from '../components/Search/Search';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Modal from '../components/Modal/Modal';
-import DetailCard from '../components/DetailCard/DetailCard';
+import DetailCardList from '../components/DetailCardList/DetailCardList';
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -30,8 +30,8 @@ const Home = () => {
   const router = useRouter();
   const { search = '' } = router.query;
 
-  const getRandomCharacter = (heroesList) => {
-    return heroesList[Math.floor(Math.random() * heroesList.length)] || {};
+  const getRandomCharacter = (gridDataList) => {
+    return gridDataList[Math.floor(Math.random() * gridDataList.length)] || {};
   };
 
   useEffect(() => {
@@ -53,10 +53,26 @@ const Home = () => {
           )
           .then((res) => {
             const comicList = res?.data?.data?.results || [];
-            setState({ heroes: [character, ...comicList] });
+            setState({
+              ...state,
+              gridData: [character, ...comicList],
+              heroComics: comicList
+            });
           });
       });
   }, []);
+
+  const setFavComics = (id) => {
+    console.log('clg comicsStars', state?.comicsStars);
+    let favs = [...(state?.comicsStars || [])];
+    const idIndex = favs?.indexOf(id);
+    if (idIndex === -1) {
+      favs.push(id);
+    } else {
+      favs.splice(idIndex, 1);
+    }
+    return setState({ ...state, comicsStars: favs });
+  };
 
   return (
     <MainContainer>
@@ -70,26 +86,28 @@ const Home = () => {
       <pre style={{ maxWidth: '100vw', overflow: 'auto' }}>
         {JSON.stringify(state)}
       </pre>
-      {state?.heroes?.length ? (
-        <CardGrid heroes={state.heroes} hasBanner={!search} />
+      {state?.gridData?.length ? (
+        <CardGrid
+          onClick={() => setState({ ...state, showModal: true })}
+          heroes={state.gridData}
+          hasBanner={!search}
+        />
       ) : (
         <p>Hero not found, try again</p>
       )}
-      <Modal
-        title={state?.heroes?.[0]?.name}
-        onCloseClick={() => alert('Cierre modal')}
-      >
-        <DetailCard
-          title={state?.heroes?.[2]?.title}
-          url={
-            state?.heroes?.[2]?.thumbnail?.path +
-            '.' +
-            state?.heroes?.[2]?.thumbnail?.extension
-          }
-          description={state?.heroes?.[2]?.description}
-        />
-        {/* {JSON.stringify(state?.heroes?.[2]?.title)} */}
-      </Modal>
+      {state.showModal && (
+        <Modal
+          title={state?.gridData?.[0]?.name}
+          onCloseClick={() => setState({ ...state, showModal: false })}
+        >
+          <DetailCardList
+            favs={state.comicsStars}
+            data={state.heroComics}
+            onCardClick={(id) => alert(`Redirige a comic ${id}`)}
+            onStarClick={(id) => setFavComics(id)}
+          />
+        </Modal>
+      )}
     </MainContainer>
   );
 };
