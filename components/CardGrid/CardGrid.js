@@ -26,7 +26,14 @@ const CardGridItem = styled.li`
   `};
 `;
 
-const CardGrid = ({ heroes, selected, onClick, hasBanner }) => {
+const CardGrid = ({
+  heroes,
+  selected,
+  onCardClick,
+  onStarClick,
+  hasBanner,
+  favs
+}) => {
   const renderCards = () => {
     return heroes.map((hero, index) => {
       return (
@@ -36,10 +43,10 @@ const CardGrid = ({ heroes, selected, onClick, hasBanner }) => {
         >
           <Card
             isBanner={hasBanner && index === 0}
-            onClick={onClick}
-            onStarClick={() => alert('Click Star')}
+            onCardClick={onCardClick}
+            onStarClick={() => onStarClick(hero.id)}
             title={hero?.name || hero?.title}
-            favorite={false}
+            favorite={favs.indexOf(hero.id) > -1}
             url={hero?.thumbnail?.path + '.' + hero?.thumbnail?.extension}
           />
         </CardGridItem>
@@ -48,22 +55,24 @@ const CardGrid = ({ heroes, selected, onClick, hasBanner }) => {
   };
 
   return (
-    <CardGridContainer selected={selected} onClick={onClick}>
-      {renderCards()}
-    </CardGridContainer>
+    <CardGridContainer selected={selected}>{renderCards()}</CardGridContainer>
   );
 };
 
 CardGrid.propTypes = {
   heroes: PropTypes.array,
-  onClick: PropTypes.func,
+  favs: PropTypes.array,
+  onCardClick: PropTypes.func,
+  onStarClick: PropTypes.func,
   selected: PropTypes.bool,
   hasBanner: PropTypes.bool
 };
 
 CardGrid.defaultProps = {
   heroes: [],
-  onClick: () => {},
+  favs: [],
+  onCardClick: () => {},
+  onStarClick: () => {},
   selected: false,
   hasBanner: false
 };
