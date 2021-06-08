@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Star from '../Star/Star';
 import Brand from '../Brand/Brand';
 import SearchInput from '../SearchInput/SearchInput';
+import { useAppContext } from '../../context/AppContext';
 
 const NavBar = styled.nav`
   align-items: center;
@@ -26,12 +27,18 @@ const StarContainer = styled.div`
 `;
 
 const Search = () => {
+  const { state, setState } = useAppContext();
   return (
     <NavBar>
       <Brand />
       <SearchInput />
       <StarContainer>
-        <Star selected={true} />
+        <Star
+          selected={state.filterByFavorites}
+          onClick={() =>
+            setState({ ...state, filterByFavorites: !state.filterByFavorites })
+          }
+        />
       </StarContainer>
     </NavBar>
   );

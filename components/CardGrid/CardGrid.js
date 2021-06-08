@@ -33,30 +33,33 @@ const CardGrid = ({
   onStarClick,
   onComicStarClick,
   hasBanner,
+  filterByFavorites,
   favs
 }) => {
   const renderCards = () => {
-    return heroes.map((hero, index) => {
-      return (
-        <CardGridItem
-          key={`CardGrid_Card_${index}`}
-          isBanner={hasBanner && index === 0}
-        >
-          <Card
+    return heroes
+      .filter((hero) => !filterByFavorites || favs.indexOf(hero.id) > -1)
+      .map((hero, index) => {
+        return (
+          <CardGridItem
+            key={`CardGrid_Card_${index}`}
             isBanner={hasBanner && index === 0}
-            onCardClick={() => onCardClick(hero.id)}
-            onStarClick={
-              hasBanner && index > 0
-                ? () => onComicStarClick(hero.id)
-                : () => onStarClick(hero.id)
-            }
-            title={hero?.name || hero?.title}
-            favorite={favs.indexOf(hero.id) > -1}
-            url={hero?.thumbnail?.path + '.' + hero?.thumbnail?.extension}
-          />
-        </CardGridItem>
-      );
-    });
+          >
+            <Card
+              isBanner={hasBanner && index === 0}
+              onCardClick={() => onCardClick(hero.id)}
+              onStarClick={
+                hasBanner && index > 0
+                  ? () => onComicStarClick(hero.id)
+                  : () => onStarClick(hero.id)
+              }
+              title={hero?.name || hero?.title}
+              favorite={favs.indexOf(hero.id) > -1}
+              url={hero?.thumbnail?.path + '.' + hero?.thumbnail?.extension}
+            />
+          </CardGridItem>
+        );
+      });
   };
 
   return (
@@ -71,6 +74,7 @@ CardGrid.propTypes = {
   onStarClick: PropTypes.func,
   onComicStarClick: PropTypes.func,
   selected: PropTypes.bool,
+  filterByFavorites: PropTypes.bool,
   hasBanner: PropTypes.bool
 };
 
@@ -81,6 +85,7 @@ CardGrid.defaultProps = {
   onStarClick: () => {},
   onComicStarClick: () => {},
   selected: false,
+  filterByFavorites: false,
   hasBanner: false
 };
 
