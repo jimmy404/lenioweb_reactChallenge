@@ -4,16 +4,14 @@ import PropTypes from 'prop-types';
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  let sharedState = [
-    {
-      gridData: [],
-      heroComics: [],
-      heroesStars: [],
-      comicsStars: [],
-      showModal: false,
-      theme: ''
-    }
-  ];
+  let sharedState = {
+    gridData: [],
+    heroComics: [],
+    heroesStars: [],
+    comicsStars: [],
+    showModal: false,
+    theme: ''
+  };
 
   const [state, setState] = useState(sharedState);
 

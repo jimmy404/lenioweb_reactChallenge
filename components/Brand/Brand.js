@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useRouter } from 'next/router';
+
 import styled from 'styled-components';
 
 const BrandContainer = styled.a`
@@ -13,7 +15,8 @@ const BrandContainer = styled.a`
 `;
 
 const Brand = () => {
-  return <BrandContainer href="/" />;
+  const router = useRouter();
+  return <BrandContainer onClick={() => router.push(`/`)} />;
 };
 
 export default Brand;
