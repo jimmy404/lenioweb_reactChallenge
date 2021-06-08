@@ -30,6 +30,10 @@ const Home = () => {
   const router = useRouter();
   const { search = '' } = router.query;
 
+  const goToComic = (id) => {
+    return router.push(`/comic/?id=${id}`);
+  };
+
   const getRandomCharacter = (gridDataList) => {
     return gridDataList[Math.floor(Math.random() * gridDataList.length)] || {};
   };
@@ -63,7 +67,6 @@ const Home = () => {
   }, []);
 
   const setFavComics = (id) => {
-    console.log('clg comicsStars', state?.comicsStars);
     let favs = [...(state?.comicsStars || [])];
     const idIndex = favs?.indexOf(id);
     if (idIndex === -1) {
@@ -103,7 +106,7 @@ const Home = () => {
           <DetailCardList
             favs={state.comicsStars}
             data={state.heroComics}
-            onCardClick={(id) => alert(`Redirige a comic ${id}`)}
+            onCardClick={(id) => goToComic(id)}
             onStarClick={(id) => setFavComics(id)}
           />
         </Modal>
