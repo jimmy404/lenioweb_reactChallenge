@@ -40,7 +40,7 @@ const SearchIcon = styled.div`
 `;
 
 const SearchInput = () => {
-  const { setState } = useAppContext();
+  const { state, setState } = useAppContext();
 
   const router = useRouter();
   const { search = '' } = router.query;
@@ -56,7 +56,7 @@ const SearchInput = () => {
         )
         .then((res) => {
           const results = res?.data?.data?.results || [];
-          setState({ heroes: results });
+          setState({ ...state, gridData: results });
         });
     }
   }, [search]);
