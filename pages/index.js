@@ -31,6 +31,7 @@ const Home = () => {
   const { search = '' } = router.query;
 
   const goToComic = (id) => {
+    setState({ ...state, showModal: false });
     return router.push(`/comic/?id=${id}`);
   };
 
@@ -39,42 +40,45 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const randomCharacter = () => {
-      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-      return characters[Math.floor(Math.random() * characters.length)];
-    };
+    if (!search) {
+      const randomCharacter = () => {
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        return characters[Math.floor(Math.random() * characters.length)];
+      };
 
-    return axios
-      .get(
-        `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-      )
-      .then((res) => {
-        const results = res?.data?.data?.results || [];
-        const character = getRandomCharacter(results);
-        return axios
-          .get(
-            `https://gateway.marvel.com:443/v1/public/characters/${1009610}/comics?issueNumber=22&limit=100&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-          )
-          .then((res) => {
-            const comicList = res?.data?.data?.results || [];
-            setState({
-              ...state,
-              gridData: [character, ...comicList],
-              heroComics: comicList
+      return axios
+        .get(
+          `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+        )
+        .then((res) => {
+          const results = res?.data?.data?.results || [];
+          const character = getRandomCharacter(results);
+          return axios
+            .get(
+              `https://gateway.marvel.com:443/v1/public/characters/${character.id}/comics?limit=100&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
+            )
+            .then((res) => {
+              const comicList = res?.data?.data?.results || [];
+              console.log('El state es: ', state);
+              setState({
+                ...state,
+                gridData: [character, ...comicList],
+                heroComics: comicList
+              });
             });
-          });
-      });
-  }, []);
+        });
+    }
+  }, [search]);
 
-  const setFavComics = (id) => {
-    let favs = [...(state?.comicsStars || [])];
+  const setFavorites = (id, key) => {
+    let favs = [...(state?.[key] || [])];
     const idIndex = favs?.indexOf(id);
     if (idIndex === -1) {
       favs.push(id);
     } else {
       favs.splice(idIndex, 1);
     }
-    return setState({ ...state, comicsStars: favs });
+    return setState({ ...state, [key]: favs });
   };
 
   return (
@@ -91,7 +95,9 @@ const Home = () => {
       </pre>
       {state?.gridData?.length ? (
         <CardGrid
-          onClick={() => setState({ ...state, showModal: true })}
+          onCardClick={() => setState({ ...state, showModal: true })}
+          onStarClick={(id) => setFavorites(id, 'heroesStars')}
+          favs={state.heroesStars}
           heroes={state.gridData}
           hasBanner={!search}
         />
@@ -107,7 +113,7 @@ const Home = () => {
             favs={state.comicsStars}
             data={state.heroComics}
             onCardClick={(id) => goToComic(id)}
-            onStarClick={(id) => setFavComics(id)}
+            onStarClick={(id) => setFavorites(id, 'comicsStars')}
           />
         </Modal>
       )}
