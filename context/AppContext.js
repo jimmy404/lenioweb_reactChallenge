@@ -10,6 +10,7 @@ export function AppWrapper({ children }) {
     heroesStars: [],
     comicsStars: [],
     showModal: false,
+    filterByFavorites: false,
     theme: ''
   };
 
