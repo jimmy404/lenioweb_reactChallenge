@@ -33,7 +33,7 @@ const StarContainer = styled.div`
   width: 20px;
 `;
 
-const Card = ({ title, favorite, url, onClick, onStarClick, isBanner }) => {
+const Card = ({ title, favorite, url, onCardClick, onStarClick, isBanner }) => {
   const handleStarClick = (e) => {
     e.stopPropagation();
     return onStarClick();
@@ -44,7 +44,7 @@ const Card = ({ title, favorite, url, onClick, onStarClick, isBanner }) => {
   return (
     <CardContainer
       url={url}
-      onClick={onClick}
+      onClick={onCardClick}
       imgNotFound={imgNotFound}
       isBanner={isBanner}
     >
@@ -58,7 +58,7 @@ const Card = ({ title, favorite, url, onClick, onStarClick, isBanner }) => {
 
 Card.propTypes = {
   favorite: PropTypes.bool,
-  onClick: PropTypes.func,
+  onCardClick: PropTypes.func,
   onStarClick: PropTypes.func,
   title: PropTypes.string,
   url: PropTypes.string,
@@ -67,7 +67,7 @@ Card.propTypes = {
 
 Card.defaultProps = {
   favorite: false,
-  onClick: () => {},
+  onCardClick: () => {},
   onStarClick: () => {},
   title: '',
   url: '',
