@@ -40,5 +40,5 @@ export function useAppContext() {
 }
 
 AppWrapper.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.array
 };
