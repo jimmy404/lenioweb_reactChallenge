@@ -80,7 +80,7 @@ const ComicPage = () => {
           description={comic?.description}
           favorite={state?.comicsStars?.indexOf(comic?.id) > -1}
           published={parsedDate}
-          onStarClick={() => setFavorites(comic.id)}
+          onStarClick={() => setFavorites(comic?.id)}
           writer={writer}
           penciler={penciler}
           coverArtist={coverArtist}
