@@ -26,10 +26,10 @@ const ComicDetail = () => {
   }, []);
   return (
     <ComicDetailContainer>
-      <iframe
+      {/* <iframe
         src={comic?.results?.[0]?.urls?.[0]?.url}
         style={{ width: '100vw', height: '100vh' }}
-      ></iframe>
+      ></iframe> */}
     </ComicDetailContainer>
   );
 };
