@@ -59,7 +59,11 @@ const DetailCard = ({
   description,
   favorite,
   onCardClick,
-  onStarClick
+  onStarClick,
+  published,
+  writer,
+  penciler,
+  coverArtist
 }) => {
   const handleStarClick = (e) => {
     e.stopPropagation();
@@ -76,6 +80,20 @@ const DetailCard = ({
             <Star selected={favorite} onClick={handleStarClick} />
           </StarContainer>
         </MainContainer>
+        {published && (
+          <DescriptionContainer>Published: {published}</DescriptionContainer>
+        )}
+        {writer && (
+          <DescriptionContainer>Writer: {writer}</DescriptionContainer>
+        )}
+        {penciler && (
+          <DescriptionContainer>Penciler: {penciler}</DescriptionContainer>
+        )}
+        {coverArtist && (
+          <DescriptionContainer>
+            Cover Artist: {coverArtist}
+          </DescriptionContainer>
+        )}
         <DescriptionContainer>{description}</DescriptionContainer>
       </RigthPanel>
     </DetailCardContainer>
@@ -88,7 +106,11 @@ DetailCard.propTypes = {
   description: PropTypes.string,
   favorite: PropTypes.bool,
   onCardClick: PropTypes.func,
-  onStarClick: PropTypes.func
+  onStarClick: PropTypes.func,
+  published: PropTypes.string,
+  writer: PropTypes.string,
+  penciler: PropTypes.string,
+  coverArtist: PropTypes.string
 };
 
 DetailCard.defaultProps = {
@@ -97,7 +119,11 @@ DetailCard.defaultProps = {
   description: '',
   favorite: false,
   onCardClick: () => {},
-  onStarClick: () => {}
+  onStarClick: () => {},
+  published: '',
+  writer: '',
+  penciler: '',
+  coverArtist: ''
 };
 
 export default DetailCard;
