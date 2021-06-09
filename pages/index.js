@@ -77,6 +77,7 @@ const Home = () => {
     } else {
       favs.splice(idIndex, 1);
     }
+    localStorage.setItem(key, JSON.stringify(favs));
     return setState({ ...state, [key]: favs });
   };
 
@@ -87,10 +88,14 @@ const Home = () => {
       )
       .then((res) => {
         const comicList = res?.data?.data?.results || [];
+        const selectedHero = state.gridData.find((hero) => {
+          return hero.id == id;
+        });
         setState({
           ...state,
           heroComics: comicList,
-          showModal: true
+          showModal: true,
+          selectedHero
         });
       });
   };
@@ -123,7 +128,7 @@ const Home = () => {
       )}
       {state.showModal && (
         <Modal
-          title={state?.gridData?.[0]?.name}
+          title={state?.selectedHero?.name}
           onCloseClick={() => setState({ ...state, showModal: false })}
         >
           <DetailCardList
