@@ -4,17 +4,24 @@ import PropTypes from 'prop-types';
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  let sharedState = {
+  let initialState = {
     gridData: [],
     heroComics: [],
-    heroesStars: [],
-    comicsStars: [],
+    heroesStars:
+      (typeof window !== 'undefined' &&
+        JSON.parse(localStorage.getItem('heroesStars'))) ||
+      [],
+    comicsStars:
+      (typeof window !== 'undefined' &&
+        JSON.parse(localStorage.getItem('comicsStars'))) ||
+      [],
     showModal: false,
     filterByFavorites: false,
+    selectedHero: {},
     theme: ''
   };
 
-  const [state, setState] = useState(sharedState);
+  const [state, setState] = useState(initialState);
 
   return (
     <AppContext.Provider
