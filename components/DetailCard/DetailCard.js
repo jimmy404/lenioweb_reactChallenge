@@ -13,14 +13,15 @@ const DetailCardContainer = styled.div`
 const ComicImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
   border-radius: 4px;
   display: flex;
-  height: 100px;
-  width: 100px;
 
   ${(props) => css`
     background-image: url(${props.url});
+    background-size: ${props.isPreview ? 'contain' : 'cover'};
+    height: ${props.isPreview ? '450px' : '100px'};
+    margin-right: ${props.isPreview ? '10px' : 'initial'};
+    width: ${props.isPreview ? '300px' : '100px'};
   `};
 `;
 
@@ -33,14 +34,26 @@ const MainContainer = styled.div`
 const RigthPanel = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: calc(100% - 100px);
   padding: 8px;
+
+  ${(props) => css`
+    max-width: calc(100% - ${props.isPreview ? '300' : '100'}px);
+  `};
 `;
 
 const StarContainer = styled.div`
-  margin-left: 10px;
   height: 20px;
+  margin-left: 10px;
   width: 20px;
+`;
+
+const DataContainer = styled.div`
+  margin: 20px 0;
+  padding: 0;
+`;
+
+const Data = styled.p`
+  font-weight: bold;
 `;
 
 const DescriptionContainer = styled.p`
@@ -48,9 +61,12 @@ const DescriptionContainer = styled.p`
 `;
 
 const TitleContainer = styled.h3`
-  font-size: 15px;
   margin-bottom: 10px;
   margin: 0;
+
+  ${(props) => css`
+    font-size: ${props.isPreview ? '24px' : '15px'};
+  `};
 `;
 
 const DetailCard = ({
@@ -63,7 +79,8 @@ const DetailCard = ({
   published,
   writer,
   penciler,
-  coverArtist
+  coverArtist,
+  isPreview
 }) => {
   const handleStarClick = (e) => {
     e.stopPropagation();
@@ -72,28 +89,20 @@ const DetailCard = ({
 
   return (
     <DetailCardContainer onClick={onCardClick}>
-      <ComicImage url={url} />
-      <RigthPanel>
+      <ComicImage url={url} isPreview={isPreview} />
+      <RigthPanel isPreview={isPreview}>
         <MainContainer>
-          <TitleContainer>{title}</TitleContainer>
+          <TitleContainer isPreview={isPreview}>{title}</TitleContainer>
           <StarContainer>
             <Star selected={favorite} onClick={handleStarClick} />
           </StarContainer>
         </MainContainer>
-        {published && (
-          <DescriptionContainer>Published: {published}</DescriptionContainer>
-        )}
-        {writer && (
-          <DescriptionContainer>Writer: {writer}</DescriptionContainer>
-        )}
-        {penciler && (
-          <DescriptionContainer>Penciler: {penciler}</DescriptionContainer>
-        )}
-        {coverArtist && (
-          <DescriptionContainer>
-            Cover Artist: {coverArtist}
-          </DescriptionContainer>
-        )}
+        <DataContainer>
+          {published && <Data>Published: {published}</Data>}
+          {writer && <Data>Writer: {writer}</Data>}
+          {penciler && <Data>Penciler: {penciler}</Data>}
+          {coverArtist && <Data>Cover Artist: {coverArtist}</Data>}
+        </DataContainer>
         <DescriptionContainer>{description}</DescriptionContainer>
       </RigthPanel>
     </DetailCardContainer>
@@ -110,7 +119,8 @@ DetailCard.propTypes = {
   published: PropTypes.string,
   writer: PropTypes.string,
   penciler: PropTypes.string,
-  coverArtist: PropTypes.string
+  coverArtist: PropTypes.string,
+  isPreview: PropTypes.bool
 };
 
 DetailCard.defaultProps = {
@@ -123,7 +133,8 @@ DetailCard.defaultProps = {
   published: '',
   writer: '',
   penciler: '',
-  coverArtist: ''
+  coverArtist: '',
+  isPreview: false
 };
 
 export default DetailCard;
