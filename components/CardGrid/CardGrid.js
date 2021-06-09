@@ -34,12 +34,14 @@ const CardGrid = ({
   onComicStarClick,
   hasBanner,
   filterByFavorites,
+  onComicCardClick,
   favs
 }) => {
   const renderCards = () => {
     return heroes
       .filter((hero) => !filterByFavorites || favs.indexOf(hero.id) > -1)
       .map((hero, index) => {
+        const isComic = hasBanner && index > 0;
         return (
           <CardGridItem
             key={`CardGrid_Card_${index}`}
@@ -47,9 +49,13 @@ const CardGrid = ({
           >
             <Card
               isBanner={hasBanner && index === 0}
-              onCardClick={() => onCardClick(hero.id)}
+              onCardClick={
+                isComic
+                  ? () => onComicCardClick(hero.id)
+                  : () => onCardClick(hero.id)
+              }
               onStarClick={
-                hasBanner && index > 0
+                isComic
                   ? () => onComicStarClick(hero.id)
                   : () => onStarClick(hero.id)
               }
@@ -73,6 +79,7 @@ CardGrid.propTypes = {
   onCardClick: PropTypes.func,
   onStarClick: PropTypes.func,
   onComicStarClick: PropTypes.func,
+  onComicCardClick: PropTypes.func,
   selected: PropTypes.bool,
   filterByFavorites: PropTypes.bool,
   hasBanner: PropTypes.bool
@@ -84,6 +91,7 @@ CardGrid.defaultProps = {
   onCardClick: () => {},
   onStarClick: () => {},
   onComicStarClick: () => {},
+  onComicCardClick: () => {},
   selected: false,
   filterByFavorites: false,
   hasBanner: false
