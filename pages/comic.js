@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useAppContext } from '../context/AppContext';
 
 import moment from 'moment';
-import axios from 'axios';
+import services from '../services/services';
 
 import styled from 'styled-components';
 import DetailCard from '../components/DetailCard/DetailCard';
@@ -29,14 +29,10 @@ const ComicPage = () => {
 
   useEffect(() => {
     if (!comic && id) {
-      axios
-        .get(
-          `https://gateway.marvel.com:443/v1/public/comics/${id}?&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-        )
-        .then((res) => {
-          const results = res?.data?.data?.results || [];
-          setState({ ...state, heroComics: results });
-        });
+      services.getComic(id).then((res) => {
+        const results = res?.data?.data?.results || [];
+        setState({ ...state, heroComics: results });
+      });
     }
   }, [id]);
 
