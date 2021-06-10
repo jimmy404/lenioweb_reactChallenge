@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import styled from 'styled-components';
-import axios from 'axios';
+import services from '../services/services';
 
 import { useAppContext } from '../context/AppContext';
 import { useRouter } from 'next/router';
@@ -41,26 +41,18 @@ const Home = () => {
         return characters[Math.floor(Math.random() * characters.length)];
       };
 
-      return axios
-        .get(
-          `https://gateway.marvel.com:443/v1/public/characters?limit=100&nameStartsWith=${randomCharacter()}&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-        )
-        .then((res) => {
-          const results = res?.data?.data?.results || [];
-          const character = getRandomCharacter(results);
-          return axios
-            .get(
-              `https://gateway.marvel.com:443/v1/public/characters/${character.id}/comics?limit=100&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-            )
-            .then((res) => {
-              const comicList = res?.data?.data?.results || [];
-              setState({
-                ...state,
-                gridData: [character, ...comicList],
-                heroComics: comicList
-              });
-            });
+      return services.getHeroes(randomCharacter()).then((res) => {
+        const results = res?.data?.data?.results || [];
+        const character = getRandomCharacter(results);
+        return services.getHeroComics(character.id).then((res) => {
+          const comicList = res?.data?.data?.results || [];
+          setState({
+            ...state,
+            gridData: [character, ...comicList],
+            heroComics: comicList
+          });
         });
+      });
     }
   }, [search]);
 
@@ -77,22 +69,18 @@ const Home = () => {
   };
 
   const fetchComics = (id) => {
-    return axios
-      .get(
-        `https://gateway.marvel.com:443/v1/public/characters/${id}/comics?limit=100&ts=1&apikey=6c915ef1dcee8a56cc163a02592aad2d&hash=a85ef61e3494356c56e955d2ac0974f0`
-      )
-      .then((res) => {
-        const comicList = res?.data?.data?.results || [];
-        const selectedHero = state.gridData.find((hero) => {
-          return hero.id == id;
-        });
-        setState({
-          ...state,
-          heroComics: comicList,
-          showModal: true,
-          selectedHero
-        });
+    return services.getHeroComics(id).then((res) => {
+      const comicList = res?.data?.data?.results || [];
+      const selectedHero = state.gridData.find((hero) => {
+        return hero.id == id;
       });
+      setState({
+        ...state,
+        heroComics: comicList,
+        showModal: true,
+        selectedHero
+      });
+    });
   };
 
   return (
