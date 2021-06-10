@@ -4,23 +4,27 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const DataMissingFeedbackContainer = styled.div`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  display: flex;
   height: 100%;
+  justify-content: center;
+  width: 100%;
 `;
 
 const DataMissingFeedbackContent = styled.div`
   background-color: white;
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  justify-content: center;
   margin: 0;
   max-height: 80%;
   max-width: 650px;
   min-height: 200px;
   padding: 0;
-  width: 60%;
   text-align: center;
+  width: 60%;
 `;
 
 const DataMissingFeedback = ({ message }) => {
