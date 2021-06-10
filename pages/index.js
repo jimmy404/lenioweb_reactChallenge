@@ -11,6 +11,7 @@ import Search from '../components/Search/Search';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Modal from '../components/Modal/Modal';
 import DetailCardList from '../components/DetailCardList/DetailCardList';
+import DataMissingFeedback from '../components/DataMissingFeedback/DataMissingFeedback';
 
 const MainContainer = styled.div`
   height: calc(100vh - 80px);
@@ -118,19 +119,23 @@ const Home = () => {
           filterByFavorites={state.filterByFavorites}
         />
       ) : (
-        <p>Hero not found, try again</p>
+        <DataMissingFeedback message="Hero not found." />
       )}
       {state.showModal && (
         <Modal
           title={state?.selectedHero?.name}
           onCloseClick={() => setState({ ...state, showModal: false })}
         >
-          <DetailCardList
-            favs={state.comicsStars}
-            data={state.heroComics}
-            onCardClick={(id) => goToComic(id)}
-            onStarClick={(id) => setFavorites(id, 'comicsStars')}
-          />
+          {state.heroComics.length ? (
+            <DetailCardList
+              favs={state.comicsStars}
+              data={state.heroComics}
+              onCardClick={(id) => goToComic(id)}
+              onStarClick={(id) => setFavorites(id, 'comicsStars')}
+            />
+          ) : (
+            <DataMissingFeedback message="No comics found." />
+          )}
         </Modal>
       )}
     </MainContainer>
