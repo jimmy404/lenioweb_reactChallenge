@@ -50,10 +50,20 @@ export const getComic = (comicId) => {
   });
 };
 
+export const getComics = (search) => {
+  return instancedApiClient.get(`/comics`, {
+    params: {
+      titleStartsWith: search,
+      limit: 100
+    }
+  });
+};
+
 const services = {
   getHeroes,
   getHeroComics,
-  getComic
+  getComic,
+  getComics
 };
 
 export default services;
