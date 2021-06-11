@@ -14,17 +14,17 @@ const DataMissingFeedbackContainer = styled.div`
 const DataMissingFeedbackContent = styled.div`
   background-color: white;
   border-radius: 4px;
+  color: #f0141e;
   display: flex;
   flex-direction: column;
   font-size: 24px;
+  font-weight: bold;
+  height: 100%;
   justify-content: center;
   margin: 0;
-  max-height: 80%;
-  max-width: 650px;
-  min-height: 200px;
   padding: 0;
   text-align: center;
-  width: 60%;
+  width: 100%;
 `;
 
 const DataMissingFeedback = ({ message }) => {

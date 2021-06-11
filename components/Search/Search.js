@@ -10,6 +10,7 @@ import { useAppContext } from '../../context/AppContext';
 const NavBar = styled.nav`
   align-items: center;
   background: #fff;
+  box-shadow: 0px 3px 15px -8px #000000;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

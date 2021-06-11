@@ -19,6 +19,15 @@ const MainContainer = styled.div`
   width: 100vw;
 `;
 
+const ModalFeedbackContainer = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  min-height: 200px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Home = () => {
   const { state, setState } = useAppContext();
 
@@ -122,7 +131,9 @@ const Home = () => {
               onStarClick={(id) => setFavorites(id, 'comicsStars')}
             />
           ) : (
-            <DataMissingFeedback message="No comics found." />
+            <ModalFeedbackContainer>
+              <DataMissingFeedback message="No comics found." />
+            </ModalFeedbackContainer>
           )}
         </Modal>
       )}

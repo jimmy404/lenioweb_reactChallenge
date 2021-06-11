@@ -27,6 +27,7 @@ const ModalCurtain = styled.div`
 `;
 
 const ModalHeader = styled.div`
+  box-shadow: 0px 3px 15px -8px #000000;
   display: flex;
   justify-content: space-between;
   max-height: 64px;
@@ -34,11 +35,11 @@ const ModalHeader = styled.div`
 `;
 
 const Title = styled.h2`
+  margin-right: 10px;
   margin: 0;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
-  margin-right: 10px;
+  white-space: nowrap;
 `;
 
 const CloseModal = styled.button`
