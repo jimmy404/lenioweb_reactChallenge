@@ -51,9 +51,20 @@ const SearchInput = () => {
   useEffect(() => {
     setSearchValue(search);
     if (search) {
-      services.getHeroes(search).then((res) => {
-        const results = res?.data?.data?.results || [];
-        setState({ ...state, gridData: results });
+      const splitedSearch = search.trim().split(',');
+      Promise.all([
+        ...splitedSearch
+          .filter((search) => search.trim() !== '')
+          .map((search) => services.getHeroes(search.trim())),
+        ...splitedSearch
+          .filter((search) => search.trim() !== '')
+          .map((search) => services.getComics(search.trim()))
+      ]).then((responses) => {
+        const results = responses.reduce(
+          (acc, res) => [...acc, ...res?.data?.data?.results],
+          []
+        );
+        setState({ ...state, gridData: [...results] });
       });
     }
   }, [search]);

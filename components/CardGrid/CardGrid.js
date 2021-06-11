@@ -41,7 +41,7 @@ const CardGrid = ({
     return heroes
       .filter((hero) => !filterByFavorites || favs.indexOf(hero.id) > -1)
       .map((hero, index) => {
-        const isComic = hasBanner && index > 0;
+        const isComic = !!hero?.format;
         return (
           <CardGridItem
             key={`CardGrid_Card_${index}`}
