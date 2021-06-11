@@ -12,6 +12,7 @@ import CardGrid from '../components/CardGrid/CardGrid';
 import Modal from '../components/Modal/Modal';
 import DetailCardList from '../components/DetailCardList/DetailCardList';
 import DataMissingFeedback from '../components/DataMissingFeedback/DataMissingFeedback';
+import Loading from '../components/Loading/Loading';
 
 const MainContainer = styled.div`
   height: calc(100vh - 80px);
@@ -45,6 +46,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!search) {
+      setState({ ...state, isLoading: true });
       const randomCharacter = () => {
         let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         return characters[Math.floor(Math.random() * characters.length)];
@@ -58,7 +60,8 @@ const Home = () => {
           setState({
             ...state,
             gridData: [character, ...comicList],
-            heroComics: comicList
+            heroComics: comicList,
+            isLoading: false
           });
         });
       });
@@ -78,6 +81,7 @@ const Home = () => {
   };
 
   const fetchComics = (id) => {
+    setState({ ...state, isHeroComicListLoading: true, showModal: true });
     return services.getHeroComics(id).then((res) => {
       const comicList = res?.data?.data?.results || [];
       const selectedHero = state.gridData.find((hero) => {
@@ -86,6 +90,7 @@ const Home = () => {
       setState({
         ...state,
         heroComics: comicList,
+        isHeroComicListLoading: false,
         showModal: true,
         selectedHero
       });
@@ -100,7 +105,9 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Search />
-      {state?.gridData?.length ? (
+      {state.isLoading ? (
+        <Loading />
+      ) : state?.gridData?.length ? (
         <CardGrid
           onCardClick={(id) => fetchComics(id)}
           onStarClick={(id) => setFavorites(id, 'heroesStars')}
@@ -123,7 +130,9 @@ const Home = () => {
           title={state?.selectedHero?.name}
           onCloseClick={() => setState({ ...state, showModal: false })}
         >
-          {state.heroComics.length ? (
+          {state.isHeroComicListLoading ? (
+            <Loading />
+          ) : state.heroComics.length ? (
             <DetailCardList
               favs={state.comicsStars}
               data={state.heroComics}
