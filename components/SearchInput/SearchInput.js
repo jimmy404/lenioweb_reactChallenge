@@ -51,9 +51,15 @@ const SearchInput = () => {
   useEffect(() => {
     setSearchValue(search);
     if (search) {
-      services.getHeroes(search).then((res) => {
-        const results = res?.data?.data?.results || [];
-        setState({ ...state, gridData: results });
+      Promise.all([
+        services.getHeroes(search),
+        services.getComics(search)
+      ]).then((responses) => {
+        const results = responses.reduce(
+          (acc, res) => [...acc, ...res?.data?.data?.results],
+          []
+        );
+        setState({ ...state, gridData: [...results] });
       });
     }
   }, [search]);
