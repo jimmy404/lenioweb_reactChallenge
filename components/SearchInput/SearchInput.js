@@ -51,6 +51,7 @@ const SearchInput = () => {
   useEffect(() => {
     setSearchValue(search);
     if (search) {
+      setState({ ...state, isLoading: true });
       const splitedSearch = search.trim().split(',');
       Promise.all([
         ...splitedSearch
@@ -59,13 +60,18 @@ const SearchInput = () => {
         ...splitedSearch
           .filter((search) => search.trim() !== '')
           .map((search) => services.getComics(search.trim()))
-      ]).then((responses) => {
-        const results = responses.reduce(
-          (acc, res) => [...acc, ...res?.data?.data?.results],
-          []
-        );
-        setState({ ...state, gridData: [...results] });
-      });
+      ])
+        .then((responses) => {
+          const results = responses.reduce(
+            (acc, res) => [...acc, ...res?.data?.data?.results],
+            []
+          );
+          setState({ ...state, gridData: [...results], isLoading: false });
+        })
+        .catch((err) => {
+          setState({ ...state, isLoading: false });
+          return console.log('Error fetching data', err);
+        });
     }
   }, [search]);
 
