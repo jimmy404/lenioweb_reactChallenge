@@ -29,9 +29,10 @@ const ComicPage = () => {
 
   useEffect(() => {
     if (!comic && id) {
+      setState({ ...state, isLoading: true });
       services.getComic(id).then((res) => {
         const results = res?.data?.data?.results || [];
-        setState({ ...state, heroComics: results });
+        setState({ ...state, heroComics: results, isLoading: false });
       });
     }
   }, [id]);

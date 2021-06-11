@@ -18,7 +18,9 @@ export function AppWrapper({ children }) {
     showModal: false,
     filterByFavorites: false,
     selectedHero: {},
-    theme: ''
+    theme: '',
+    isLoading: false,
+    isHeroComicListLoading: false
   };
 
   const [state, setState] = useState(initialState);
