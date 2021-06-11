@@ -51,9 +51,14 @@ const SearchInput = () => {
   useEffect(() => {
     setSearchValue(search);
     if (search) {
+      const splitedSearch = search.trim().split(',');
       Promise.all([
-        services.getHeroes(search),
-        services.getComics(search)
+        ...splitedSearch
+          .filter((search) => search.trim() !== '')
+          .map((search) => services.getHeroes(search.trim())),
+        ...splitedSearch
+          .filter((search) => search.trim() !== '')
+          .map((search) => services.getComics(search.trim()))
       ]).then((responses) => {
         const results = responses.reduce(
           (acc, res) => [...acc, ...res?.data?.data?.results],
