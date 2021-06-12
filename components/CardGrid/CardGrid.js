@@ -1,59 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import styles from './stylesCardGrid';
 
 import Card from '../Card/Card';
 
 const CardGridContainer = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-row-gap: 20px;
-  grid-gap: 20px;
-  max-width: 860px;
-
-  @media (min-width: 500px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (min-width: 960px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  ${styles.CardGridContainer}
 `;
 
 const CardGridItem = styled.li`
-  max-width: 200px;
-
-  ${(props) => css`
-    grid-column: ${props.isBanner ? '1 / 2' : 'auto'};
-    grid-row: ${props.isBanner ? '1' : 'auto'};
-  `};
-
-  @media (min-width: 500px) {
-    max-width: initial;
-    ${(props) => css`
-      grid-column: ${props.isBanner ? '1 / 3' : 'auto'};
-    `}
-  }
-
-  @media (min-width: 768px) {
-    ${(props) => css`
-      grid-column: ${props.isBanner ? '1 / 4' : 'auto'};
-    `}
-  }
-
-  @media (min-width: 960px) {
-    ${(props) => css`
-      grid-column: ${props.isBanner ? '1 / 5' : 'auto'};
-    `}
-  }
+  ${styles.CardGridItem}
 `;
 
 const CardGrid = ({

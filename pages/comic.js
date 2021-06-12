@@ -2,19 +2,17 @@ import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 import { useAppContext } from '../context/AppContext';
-
 import moment from 'moment';
 import services from '../services/services';
 
 import styled from 'styled-components';
+import styles from '../styles/comicStyles';
+
 import DetailCard from '../components/DetailCard/DetailCard';
 import Search from '../components/Search/Search';
 
 const ComicPageContainer = styled.div`
-  height: calc(100vh - 80px);
-  margin-top: 80px;
-  padding: 60px;
-  width: 100vw;
+  ${styles.ComicPageContainer}
 `;
 
 const ComicPage = () => {

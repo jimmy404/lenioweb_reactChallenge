@@ -1,15 +1,14 @@
 import React from 'react';
-
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+
+import styled from 'styled-components';
+import styles from './stylesDetailCardList';
 
 import DetailCard from '../DetailCard/DetailCard';
 
 const CardListContainer = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  ${styles.CardListContainer}
 `;
 
 const renderItems = ({ list, onCardClick, onStarClick, favs }) => {

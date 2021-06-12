@@ -1,61 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
+import styles from './stylesModal';
 
 const ModalContainer = styled.div`
-  background-color: white;
-  border-radius: 4px;
-  margin: 0;
-  max-height: 80%;
-  max-width: 650px;
-  min-height: 200px;
-  padding: 0;
-  width: 80%;
+  ${styles.ModalContainer}
 `;
 
 const ModalCurtain = styled.div`
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  z-index: 100;
+  ${styles.ModalCurtain}
 `;
 
 const ModalHeader = styled.div`
-  box-shadow: 0px 3px 15px -8px #000000;
-  display: flex;
-  justify-content: space-between;
-  max-height: 64px;
-  padding: 16px;
+  ${styles.ModalHeader}
 `;
 
 const Title = styled.h2`
-  margin-right: 10px;
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  ${styles.Title}
 `;
 
 const CloseModal = styled.button`
-  align-items: flex-start;
-  background: none;
-  border: none;
-  display: flex;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1;
+  ${styles.CloseModal}
 `;
 
 const ModalContent = styled.section`
-  max-height: calc(80vh - 64px);
-  overflow-y: auto;
-  padding: 16px;
+  ${styles.ModalContent}
 `;
 
 const Modal = ({ children, title, onCloseClick }) => {

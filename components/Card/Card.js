@@ -1,36 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import styles from './stylesCard';
+
 import Star from '../Star/Star';
 
 const CardContainer = styled.div`
-  align-items: flex-end;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  justify-content: space-between;
-  padding: 10px;
-
-  ${(props) => css`
-    background-image: url(${props.url});
-    background-position: ${props.imgNotFound ? 'bottom left' : 'center'};
-    width: ${props.isBanner ? 'initial' : '200px'};
-  `};
+  ${styles.CardContainer}
 `;
 
 const Title = styled.h3`
-  color: white;
-  margin: 0;
-  text-shadow: 0px 0px 4px black;
-  width: 100%;
+  ${styles.Title}
 `;
 
 const StarContainer = styled.div`
-  height: 20px;
-  width: 20px;
+  ${styles.StarContainer}
 `;
 
 const Card = ({ title, favorite, url, onCardClick, onStarClick, isBanner }) => {

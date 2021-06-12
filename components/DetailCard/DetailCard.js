@@ -1,91 +1,45 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import styles from './stylesDetailCard';
+
 import Star from '../Star/Star';
 
 const DetailCardContainer = styled.div`
-  display: flex;
-  margin-bottom: 10px;
-
-  ${(props) =>
-    props.isPreview &&
-    css`
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-      @media (min-width: 600px) {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-    `};
+  ${styles.DetailCardContainer}
 `;
 
 const ComicImage = styled.div`
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 4px;
-  display: flex;
-
-  ${(props) => css`
-    background-image: url(${props.url});
-    background-size: ${props.isPreview ? 'contain' : 'cover'};
-    height: ${props.isPreview ? '450px' : '100px'};
-    margin-right: ${props.isPreview ? '10px' : 'initial'};
-    width: ${props.isPreview ? '300px' : '100px'};
-  `};
+  ${styles.ComicImage}
 `;
 
 const MainContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 0;
+  ${styles.MainContainer}
 `;
 
 const RigthPanel = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-
-  ${(props) =>
-    props.isPreview
-      ? css`
-          @media (min-width: 600px) {
-            max-width: calc(100% - ${props.isPreview ? '300' : '100'}px);
-          }
-        `
-      : css`
-          max-width: calc(100% - ${props.isPreview ? '300' : '100'}px);
-        `};
+  ${styles.RigthPanel}
 `;
 
 const StarContainer = styled.div`
-  height: 20px;
-  margin-left: 10px;
-  width: 20px;
+  ${styles.StarContainer}
 `;
 
 const DataContainer = styled.div`
-  margin: 20px 0;
-  padding: 0;
+  ${styles.DataContainer}
 `;
 
 const Data = styled.p`
-  font-weight: bold;
+  ${styles.Data}
 `;
 
 const DescriptionContainer = styled.p`
-  margin: 0;
+  ${styles.DescriptionContainer}
 `;
 
 const TitleContainer = styled.h3`
-  margin-bottom: 10px;
-  margin: 0;
-
-  ${(props) => css`
-    font-size: ${props.isPreview ? '24px' : '15px'};
-  `};
+  ${styles.TitleContainer}
 `;
 
 const DetailCard = ({
