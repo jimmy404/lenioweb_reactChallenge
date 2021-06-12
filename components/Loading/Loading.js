@@ -1,16 +1,10 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import styles from './stylesLoading';
 
 const LoadingContainer = styled.div`
-  align-items: center;
-  color: #000;
-  display: flex;
-  font-size: 24px;
-  font-weight: bold;
-  height: 100%;
-  justify-content: center;
-  width: 100%;
+  ${styles.LoadingContainer}
 `;
 
 const Loading = () => {
