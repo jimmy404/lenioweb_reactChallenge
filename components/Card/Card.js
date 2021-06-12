@@ -17,7 +17,7 @@ const CardContainer = styled.div`
   ${(props) => css`
     background-image: url(${props.url});
     background-position: ${props.imgNotFound ? 'bottom left' : 'center'};
-    width: ${props.isBanner ? '860px' : '200px'};
+    width: ${props.isBanner ? 'initial' : '200px'};
   `};
 `;
 

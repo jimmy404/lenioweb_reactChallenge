@@ -8,6 +8,18 @@ import Star from '../Star/Star';
 const DetailCardContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
+
+  ${(props) =>
+    props.isPreview &&
+    css`
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      @media (min-width: 600px) {
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    `};
 `;
 
 const ComicImage = styled.div`
@@ -36,9 +48,16 @@ const RigthPanel = styled.div`
   flex-direction: column;
   padding: 8px;
 
-  ${(props) => css`
-    max-width: calc(100% - ${props.isPreview ? '300' : '100'}px);
-  `};
+  ${(props) =>
+    props.isPreview
+      ? css`
+          @media (min-width: 600px) {
+            max-width: calc(100% - ${props.isPreview ? '300' : '100'}px);
+          }
+        `
+      : css`
+          max-width: calc(100% - ${props.isPreview ? '300' : '100'}px);
+        `};
 `;
 
 const StarContainer = styled.div`
@@ -88,7 +107,7 @@ const DetailCard = ({
   };
 
   return (
-    <DetailCardContainer onClick={onCardClick}>
+    <DetailCardContainer onClick={onCardClick} isPreview={isPreview}>
       <ComicImage url={url} isPreview={isPreview} />
       <RigthPanel isPreview={isPreview}>
         <MainContainer>

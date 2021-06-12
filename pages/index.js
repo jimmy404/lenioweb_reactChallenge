@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { getRandomLetter, getRandomElement } from '../utilities/utilities';
 
 import styled from 'styled-components';
+import styles from '../styles/indexStyles';
 import services from '../services/services';
 
 import Head from 'next/head';
@@ -16,18 +17,15 @@ import DataMissingFeedback from '../components/DataMissingFeedback/DataMissingFe
 import Loading from '../components/Loading/Loading';
 
 const MainContainer = styled.div`
-  height: calc(100vh - 80px);
-  margin-top: 80px;
-  width: 100vw;
+  ${styles.MainContainer}
+`;
+
+const MainContentContainer = styled.div`
+  ${styles.MainContentContainer}
 `;
 
 const ModalFeedbackContainer = styled.div`
-  width: 100%;
-  height: 200px;
-  display: flex;
-  min-height: 200px;
-  justify-content: center;
-  align-items: center;
+  ${styles.ModalFeedbackContainer}
 `;
 
 const Home = () => {
@@ -97,26 +95,28 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Search />
-      {state.isLoading ? (
-        <Loading />
-      ) : state?.gridData?.length ? (
-        <CardGrid
-          onCardClick={(id) => fetchComics(id)}
-          onStarClick={(id) => setFavorites(id, 'heroesStars')}
-          onComicStarClick={(id) => setFavorites(id, 'comicsStars')}
-          onComicCardClick={(id) => goToComic(id)}
-          favs={
-            search
-              ? state.heroesStars
-              : [...(state?.heroesStars || []), ...(state?.comicsStars || [])]
-          }
-          heroes={state.gridData}
-          hasBanner={!search}
-          filterByFavorites={state.filterByFavorites}
-        />
-      ) : (
-        <DataMissingFeedback message="Hero not found." />
-      )}
+      <MainContentContainer>
+        {state.isLoading ? (
+          <Loading />
+        ) : state?.gridData?.length ? (
+          <CardGrid
+            onCardClick={(id) => fetchComics(id)}
+            onStarClick={(id) => setFavorites(id, 'heroesStars')}
+            onComicStarClick={(id) => setFavorites(id, 'comicsStars')}
+            onComicCardClick={(id) => goToComic(id)}
+            favs={
+              search
+                ? state.heroesStars
+                : [...(state?.heroesStars || []), ...(state?.comicsStars || [])]
+            }
+            heroes={state.gridData}
+            hasBanner={!search}
+            filterByFavorites={state.filterByFavorites}
+          />
+        ) : (
+          <DataMissingFeedback message="Hero not found." />
+        )}
+      </MainContentContainer>
       {state.showModal && (
         <Modal
           title={state?.selectedHero?.name}
