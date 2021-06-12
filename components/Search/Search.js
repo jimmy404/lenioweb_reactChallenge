@@ -16,7 +16,7 @@ const NavBar = styled.nav`
   justify-content: space-between;
   max-height: 80px;
   min-height: 80px;
-  padding: 20px 100px 20px 20px;
+  padding: 20px;
   position: fixed;
   top: 0;
   width: 100%;

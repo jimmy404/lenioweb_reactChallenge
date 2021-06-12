@@ -9,6 +9,7 @@ const StarContainer = styled.div`
   background-size: contain;
   display: inline-block;
   height: 100%;
+  min-width: 30px;
   width: 100%;
 
   ${(props) => css`

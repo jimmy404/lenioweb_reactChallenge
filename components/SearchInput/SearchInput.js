@@ -11,8 +11,12 @@ const SearchInputContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-  max-width: 80%;
+  max-width: 50%;
   width: 100%;
+
+  @media (min-width: 500px) {
+    max-width: 80%;
+  }
 `;
 
 const InputContainer = styled.div`

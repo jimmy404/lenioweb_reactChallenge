@@ -13,7 +13,7 @@ import Search from '../components/Search/Search';
 const ComicPageContainer = styled.div`
   height: calc(100vh - 80px);
   margin-top: 80px;
-  padding: 40px;
+  padding: 60px;
   width: 100vw;
 `;
 
