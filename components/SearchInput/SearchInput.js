@@ -1,47 +1,29 @@
 import React, { useEffect, useState } from 'react';
-
-import styled from 'styled-components';
-
 import services from '../../services/services';
-
 import { useRouter } from 'next/router';
 import { useAppContext } from '../../context/AppContext';
 
-const SearchInputContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  max-width: 50%;
-  width: 100%;
+import styled from 'styled-components';
+import styles from './stylesSearchInput';
 
-  @media (min-width: 500px) {
-    max-width: 80%;
-  }
+const SearchInputContainer = styled.div`
+  ${styles.SearchInputContainer}
 `;
 
 const InputContainer = styled.div`
-  width: 80%;
+  ${styles.InputContainer}
 `;
 
 const Form = styled.form`
-  width: 100%;
+  ${styles.Form}
 `;
 
 const Input = styled.input`
-  border: none;
-  outline: none;
-  width: 100%;
+  ${styles.Input}
 `;
 
 const SearchIcon = styled.div`
-  background-image: url('https://image.flaticon.com/icons/png/512/622/622669.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: inline-block;
-  height: 15px;
-  margin-right: 15px;
-  width: 15px;
+  ${styles.SearchIcon}
 `;
 
 const SearchInput = () => {
