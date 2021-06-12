@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 
-import styled from 'styled-components';
-import services from '../services/services';
-
 import { useAppContext } from '../context/AppContext';
 import { useRouter } from 'next/router';
+import { getRandomLetter, getRandomElement } from '../utilities/utilities';
+
+import styled from 'styled-components';
+import services from '../services/services';
 
 import Head from 'next/head';
 import Search from '../components/Search/Search';
@@ -40,21 +41,12 @@ const Home = () => {
     return router.push(`/comic/?id=${id}`);
   };
 
-  const getRandomCharacter = (gridDataList) => {
-    return gridDataList[Math.floor(Math.random() * gridDataList.length)] || {};
-  };
-
   useEffect(() => {
     if (!search) {
       setState({ ...state, isLoading: true });
-      const randomCharacter = () => {
-        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        return characters[Math.floor(Math.random() * characters.length)];
-      };
-
-      return services.getHeroes(randomCharacter()).then((res) => {
+      return services.getHeroes(getRandomLetter()).then((res) => {
         const results = res?.data?.data?.results || [];
-        const character = getRandomCharacter(results);
+        const character = getRandomElement(results) || {};
         return services.getHeroComics(character.id).then((res) => {
           const comicList = res?.data?.data?.results || [];
           setState({
