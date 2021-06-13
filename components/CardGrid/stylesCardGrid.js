@@ -2,14 +2,15 @@ import { css } from 'styled-components';
 
 const styles = {
   CardGridContainer: css`
+    display: grid;
+    grid-gap: 20px;
+    grid-row-gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
     list-style: none;
     margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-row-gap: 20px;
-    grid-gap: 20px;
     max-width: 860px;
+    min-width: 200px;
+    padding: 0;
 
     @media (min-width: 500px) {
       grid-template-columns: repeat(2, 1fr);
