@@ -5,6 +5,7 @@ const styles = {
     align-items: flex-end;
     background-repeat: no-repeat;
     background-size: cover;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     height: 300px;

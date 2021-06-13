@@ -5,6 +5,7 @@ const styles = {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    cursor: crosshair;
     display: inline-block;
     height: ${(props) => props.theme.heightStar};
     min-width: ${(props) => props.theme.minWidthStar};

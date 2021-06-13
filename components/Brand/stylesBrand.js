@@ -6,6 +6,7 @@ const styles = {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    cursor: pointer;
     display: inline-block;
     height: 40px;
     width: 115px;
