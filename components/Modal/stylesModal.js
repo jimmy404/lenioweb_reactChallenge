@@ -2,8 +2,8 @@ import { css } from 'styled-components';
 
 const styles = {
   ModalContainer: css`
-    background-color: white;
-    border-radius: 4px;
+    background-color: ${(props) => props.theme.backgroundModal};
+    border-radius: ${(props) => props.theme.borderRadiusModal};
     margin: 0;
     max-height: 80%;
     max-width: 650px;
@@ -13,7 +13,7 @@ const styles = {
   `,
   ModalCurtain: css`
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.backgroundModalCurtain};
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -24,14 +24,14 @@ const styles = {
     z-index: 100;
   `,
   ModalHeader: css`
-    box-shadow: 0px 3px 15px -8px #000000;
+    box-shadow: ${(props) => props.theme.boxShadowModalHeader};
     display: flex;
     justify-content: space-between;
-    max-height: 64px;
-    padding: 16px;
+    max-height: ${(props) => props.theme.maxHeightModalHeader};
+    padding: ${(props) => props.theme.paddingModalHeader};
   `,
   Title: css`
-    margin-right: 10px;
+    margin-right: ${(props) => props.theme.marginRightModalTitle};
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -42,14 +42,14 @@ const styles = {
     background: none;
     border: none;
     display: flex;
-    font-size: 20px;
+    font-size: ${(props) => props.theme.fontSizeModalClose};
     font-weight: bold;
     line-height: 1;
   `,
   ModalContent: css`
     max-height: calc(80vh - 64px);
     overflow-y: auto;
-    padding: 16px;
+    padding: ${(props) => props.theme.paddingModalContent};
   `
 };
 
