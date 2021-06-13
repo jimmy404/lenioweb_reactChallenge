@@ -108,11 +108,10 @@ const Home = () => {
             onStarClick={(id) => setFavorites(id, 'heroesStars')}
             onComicStarClick={(id) => setFavorites(id, 'comicsStars')}
             onComicCardClick={(id) => goToComic(id)}
-            favs={
-              search
-                ? state.heroesStars
-                : [...(state?.heroesStars || []), ...(state?.comicsStars || [])]
-            }
+            favs={[
+              ...(state?.heroesStars || []),
+              ...(state?.comicsStars || [])
+            ]}
             heroes={state.gridData}
             hasBanner={!search}
             filterByFavorites={state.filterByFavorites}
