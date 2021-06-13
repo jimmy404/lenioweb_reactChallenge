@@ -1,23 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import '../styles/globals.css';
 import { AppWrapper } from '../context/AppContext';
+import { defaultTheme } from '../theme';
 
 const GlobalStyle = createGlobalStyle`
 	body {
-		background-color: #DCDCDC;
+		background-color: ${(props) => props.theme.appBackgroundColor};
 	}
 `;
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AppWrapper>
-      <GlobalStyle />
-      <Component {...pageProps} />
-    </AppWrapper>
+    <ThemeProvider theme={defaultTheme}>
+      <AppWrapper>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </AppWrapper>
+    </ThemeProvider>
   );
 }
 
