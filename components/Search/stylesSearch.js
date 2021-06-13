@@ -3,21 +3,21 @@ import { css } from 'styled-components';
 const styles = {
   NavBar: css`
     align-items: center;
-    background: #fff;
-    box-shadow: rgb(0 0 0) 0px 3px 15px -8px;
+    background: ${(props) => props.theme.backgroundNavBar};
+    box-shadow: ${(props) => props.theme.boxShadowNavBar};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-height: 80px;
-    min-height: 80px;
-    padding: 20px;
+    max-height: ${(props) => props.theme.maxHeightNavBar};
+    min-height: ${(props) => props.theme.minHeightNavBar};
+    padding: ${(props) => props.theme.paddingNavBar};
     position: fixed;
     top: 0;
     width: 100%;
   `,
   StarContainer: css`
-    height: 30px;
-    width: 30px;
+    height: ${(props) => props.theme.heightStarContainerNavBar};
+    width: ${(props) => props.theme.widthStarContainerNavBar};
   `
 };
 

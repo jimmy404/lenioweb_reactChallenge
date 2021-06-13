@@ -6,9 +6,9 @@ const styles = {
     background-repeat: no-repeat;
     background-size: contain;
     display: inline-block;
-    height: 100%;
-    min-width: 30px;
-    width: 100%;
+    height: ${(props) => props.theme.heightStar};
+    min-width: ${(props) => props.theme.minWidthStar};
+    width: ${(props) => props.theme.widthStar};
 
     ${(props) => css`
       background-image: url(${props.selected

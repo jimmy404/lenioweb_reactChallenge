@@ -9,13 +9,13 @@ const styles = {
     width: 100%;
   `,
   DataMissingFeedbackContent: css`
-    background-color: white;
-    border-radius: 4px;
-    color: #f0141e;
+    background-color: ${(props) => props.theme.BackgroundColorMessage};
+    border-radius: ${(props) => props.theme.borderRadiusMessage};
+    color: ${(props) => props.theme.colorFontMessage};
     display: flex;
     flex-direction: column;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: ${(props) => props.theme.fontSizeMessage};
+    font-weight: ${(props) => props.theme.fontWeightMessage};
     height: 100%;
     justify-content: center;
     margin: 0;

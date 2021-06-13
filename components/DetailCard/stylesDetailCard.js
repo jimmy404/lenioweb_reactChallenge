@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 const styles = {
   DetailCardContainer: css`
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: ${(props) => props.theme.marginBottomContainer};
 
     ${(props) =>
       props.isPreview &&
@@ -20,7 +20,7 @@ const styles = {
   ComicImage: css`
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 4px;
+    border-radius: ${(props) => props.theme.borderRadiusComicImage};
     display: flex;
 
     ${(props) => css`
@@ -39,7 +39,8 @@ const styles = {
   RigthPanel: css`
     display: flex;
     flex-direction: column;
-    padding: 8px;
+    padding: ${(props) => props.theme.paddingRightPanel};
+    color: ${(props) => props.theme.colorTextRightPanel};
 
     ${(props) =>
       props.isPreview
@@ -53,22 +54,22 @@ const styles = {
           `};
   `,
   StarContainer: css`
-    height: 20px;
-    margin-left: 10px;
-    width: 20px;
+    height: ${(props) => props.theme.heightStarContainer};
+    margin-left: ${(props) => props.theme.marginLeftStarContainer};
+    width: ${(props) => props.theme.widthStarContainer};
   `,
   DataContainer: css`
-    margin: 20px 0;
+    margin: ${(props) => props.theme.marginDataContainer};
     padding: 0;
   `,
   Data: css`
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeightMessage};
   `,
   DescriptionContainer: css`
     margin: 0;
   `,
   TitleContainer: css`
-    margin-bottom: 10px;
+    margin-bottom: ${(props) => props.theme.marginBottomContainer};
     margin: 0;
 
     ${(props) => css`

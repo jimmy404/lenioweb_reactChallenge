@@ -18,9 +18,9 @@ const styles = {
     `};
   `,
   Title: css`
-    color: white;
+    color: ${(props) => props.theme.colorFont};
     margin: 0;
-    text-shadow: 0px 0px 4px black;
+    text-shadow: ${(props) => props.theme.shadowText};
     width: 100%;
   `,
   StarContainer: css`
