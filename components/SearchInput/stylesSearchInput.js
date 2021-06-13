@@ -5,23 +5,23 @@ const styles = {
     align-items: center;
     display: flex;
     justify-content: center;
-    max-width: 50%;
-    width: 100%;
+    max-width: ${(props) => props.theme.maxWidthSearchInputContainer};
+    width: ${(props) => props.theme.widthSearchInputContainer};
 
     @media (min-width: 500px) {
       max-width: 80%;
     }
   `,
   InputContainer: css`
-    width: 80%;
+    width: ${(props) => props.theme.widthInputContainer};
   `,
   Form: css`
-    width: 100%;
+    width: ${(props) => props.theme.widthForm};
   `,
   Input: css`
     border: none;
     outline: none;
-    width: 100%;
+    width: ${(props) => props.theme.widthInput};
   `,
   SearchIcon: css`
     background-image: url('https://image.flaticon.com/icons/png/512/622/622669.png');
@@ -29,9 +29,9 @@ const styles = {
     background-repeat: no-repeat;
     background-size: contain;
     display: inline-block;
-    height: 15px;
-    margin-right: 15px;
-    width: 15px;
+    height: ${(props) => props.theme.heightSearchIcon};
+    margin-right: ${(props) => props.theme.marginRightSearchIcon};
+    width: ${(props) => props.theme.widthSearchIcon};
   `
 };
 
