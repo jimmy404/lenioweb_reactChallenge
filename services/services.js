@@ -31,7 +31,7 @@ export const getHeroes = (search) => {
   return instancedApiClient.get('/characters', {
     params: {
       nameStartsWith: search,
-      limit: 100
+      limit: 50
     }
   });
 };
@@ -39,7 +39,7 @@ export const getHeroes = (search) => {
 export const getHeroComics = (heroId) => {
   return instancedApiClient.get(`/characters/${heroId}/comics`, {
     params: {
-      limit: 100
+      limit: 50
     }
   });
 };
@@ -54,7 +54,7 @@ export const getComics = (search) => {
   return instancedApiClient.get(`/comics`, {
     params: {
       titleStartsWith: search,
-      limit: 100
+      limit: 50
     }
   });
 };
