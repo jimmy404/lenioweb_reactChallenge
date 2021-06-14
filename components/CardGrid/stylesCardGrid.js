@@ -33,19 +33,21 @@ const styles = {
     `};
 
     @media (min-width: 500px) {
-      max-width: initial;
+      max-width: 420px;
       ${(props) => css`
         grid-column: ${props.isBanner ? '1 / 3' : 'auto'};
       `}
     }
 
     @media (min-width: 768px) {
+      max-width: 640px;
       ${(props) => css`
         grid-column: ${props.isBanner ? '1 / 4' : 'auto'};
       `}
     }
 
     @media (min-width: 960px) {
+      max-width: 860px;
       ${(props) => css`
         grid-column: ${props.isBanner ? '1 / 5' : 'auto'};
       `}
