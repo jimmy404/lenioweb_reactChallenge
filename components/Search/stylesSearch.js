@@ -18,6 +18,13 @@ const styles = {
   StarContainer: css`
     height: ${(props) => props.theme.heightStarContainerNavBar};
     width: ${(props) => props.theme.widthStarContainerNavBar};
+  `,
+  ThemeButton: css`
+    background-color: ${(props) => props.theme.themeBackgroundColor};
+    border-radius: 4px;
+    color: ${(props) => props.theme.themeButtonColor};
+    margin: 10px;
+    padding: 5px;
   `
 };
 

@@ -31,6 +31,7 @@ const styles = {
     padding: ${(props) => props.theme.paddingModalHeader};
   `,
   Title: css`
+    color: ${(props) => props.theme.colorModalTitle};
     margin-right: ${(props) => props.theme.marginRightModalTitle};
     margin: 0;
     overflow: hidden;
@@ -41,6 +42,7 @@ const styles = {
     align-items: flex-start;
     background: none;
     border: none;
+    color: ${(props) => props.theme.colorModalClose};
     display: flex;
     font-size: ${(props) => props.theme.fontSizeModalClose};
     font-weight: bold;

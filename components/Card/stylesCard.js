@@ -11,12 +11,30 @@ const styles = {
     height: 300px;
     justify-content: space-between;
     padding: 10px;
+    width: 200px;
 
     ${(props) => css`
       background-image: url(${props.url});
       background-position: ${props.imgNotFound ? 'bottom left' : 'center'};
-      width: ${props.isBanner ? 'initial' : '200px'};
     `};
+
+    @media (min-width: 500px) {
+      ${(props) => css`
+        width: ${props.isBanner ? '420px' : '200px'};
+      `};
+    }
+
+    @media (min-width: 768px) {
+      ${(props) => css`
+        width: ${props.isBanner ? '640px' : '200px'};
+      `};
+    }
+
+    @media (min-width: 960px) {
+      ${(props) => css`
+        width: ${props.isBanner ? '860px' : '200px'};
+      `};
+    }
   `,
   Title: css`
     color: ${(props) => props.theme.colorFont};

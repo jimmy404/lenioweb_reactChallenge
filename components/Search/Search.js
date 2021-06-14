@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useAppContext } from '../../context/AppContext';
+import useDarkMode from 'use-dark-mode';
 
 import styled from 'styled-components';
 import styles from './stylesSearch';
@@ -17,12 +18,22 @@ const StarContainer = styled.div`
   ${styles.StarContainer}
 `;
 
+const ThemeButton = styled.button`
+  ${styles.ThemeButton};
+`;
+
 const Search = () => {
   const { state, setState } = useAppContext();
+  const darkMode = useDarkMode(true);
   return (
     <NavBar>
       <Brand />
       <SearchInput />
+      <ThemeButton
+        onClick={darkMode.value ? darkMode.disable : darkMode.enable}
+      >
+        {darkMode.value ? 'Light' : 'Dark'}
+      </ThemeButton>
       <StarContainer>
         <Star
           selected={state.filterByFavorites}

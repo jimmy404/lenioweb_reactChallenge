@@ -13,8 +13,8 @@ const styles = {
 
     ${(props) => css`
       background-image: url(${props.selected
-        ? 'https://image.flaticon.com/icons/png/512/1828/1828614.png'
-        : 'https://image.flaticon.com/icons/png/512/1828/1828970.png'});
+        ? './yellowStar.svg'
+        : './whiteStar.svg'});
     `}
   `
 };
