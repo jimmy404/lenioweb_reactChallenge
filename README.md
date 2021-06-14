@@ -95,9 +95,9 @@ You can start editing the code and adds new feats!. **Good luck and thanks!**
 To learn more about the technologies used in this project, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs).
-- [React Documentation](https://nextjs.org/docs).
-- [Styled-components Documentation](https://nextjs.org/docs).
-- [Axios Documentation](https://nextjs.org/docs).
-- [Git Documentation](https://nextjs.org/docs).
-- [Heroku Documentation](https://nextjs.org/docs).
+- [React Documentation](https://es.reactjs.org/).
+- [Styled-components Documentation](https://styled-components.com/).
+- [Axios Documentation](https://axios-http.com/docs/intro).
+- [Git Documentation](https://git-scm.com/doc).
+- [Heroku Documentation](https://devcenter.heroku.com/categories/reference).
 
