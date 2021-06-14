@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+import useDarkMode from 'use-dark-mode';
 
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import '../styles/globals.css';
 import { AppWrapper } from '../context/AppContext';
-import { defaultTheme } from '../theme';
+import { lightTheme, darkTheme } from '../theme';
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -14,11 +16,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function MyApp({ Component, pageProps }) {
+  const [isMounted, setIsMounted] = useState(false);
+  const darkMode = useDarkMode(true);
+  const theme = darkMode.value ? darkTheme : lightTheme;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <AppWrapper>
         <GlobalStyle />
-        <Component {...pageProps} />
+        {isMounted && <Component {...pageProps} />}
       </AppWrapper>
     </ThemeProvider>
   );
