@@ -1,2 +1,2 @@
-export { default as defaultTheme } from './default';
-export { default as secondaryTheme } from './secondary';
+export { default as lightTheme } from './default';
+export { default as darkTheme } from './secondary';

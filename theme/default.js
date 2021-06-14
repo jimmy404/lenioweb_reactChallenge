@@ -27,6 +27,8 @@ export default {
   borderRadiusModal: '4px',
   backgroundModalCurtain: 'rgba(0, 0, 0, 0.5)',
   boxShadowModalHeader: '0px 3px 15px -8px #000000',
+  colorModalClose: '#000',
+  colorModalTitle: '#000',
   maxHeightModalHeader: '64px',
   paddingModalHeader: '16px',
   marginRightModalTitle: '10px',
@@ -47,10 +49,13 @@ export default {
   widthForm: '100%',
   widthInput: '100%',
   heightSearchIcon: '15px',
-  marginRightSearchIcon: '15px',
+  marginRightSearchIcon: '5px',
   widthSearchIcon: '15px',
   //Star
   heightStar: '100%',
   minWidthStar: '30px',
-  widthStar: '100%'
+  widthStar: '100%',
+  //ThemeButton
+  themeButtonColor: '#000',
+  themeBackgroundColor: '#fff'
 };

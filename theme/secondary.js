@@ -1,6 +1,6 @@
 export default {
   // Generals
-  appBackgroundColor: '#000',
+  appBackgroundColor: '#202124',
   colorFont: '#fff',
   colorFontLoading: '#fff',
   shadowText: '0px 0px 4px black',
@@ -23,10 +23,12 @@ export default {
   widthStarContainer: '20px',
   marginDataContainer: '20px 0',
   //Modal
-  backgroundModal: '#fff',
+  backgroundModal: '#292a2d',
   borderRadiusModal: '4px',
   backgroundModalCurtain: 'rgba(0, 0, 0, 0.5)',
   boxShadowModalHeader: '0px 3px 15px -8px #000000',
+  colorModalClose: '#fff',
+  colorModalTitle: '#fff',
   maxHeightModalHeader: '64px',
   paddingModalHeader: '16px',
   marginRightModalTitle: '10px',
@@ -34,7 +36,7 @@ export default {
   paddingModalContent: '16px',
   //Navbar
   backgroundNavBar: '#fff',
-  boxShadowNavBar: '1px 8px 5px 0px rgba(255,255,255,0.75)',
+  boxShadowNavBar: 'rgb(0 0 0) 0px 3px 15px -8px',
   maxHeightNavBar: '80px',
   minHeightNavBar: '80px',
   paddingNavBar: '20px',
@@ -47,10 +49,13 @@ export default {
   widthForm: '100%',
   widthInput: '100%',
   heightSearchIcon: '15px',
-  marginRightSearchIcon: '15px',
+  marginRightSearchIcon: '5px',
   widthSearchIcon: '15px',
   //Star
   heightStar: '100%',
   minWidthStar: '30px',
-  widthStar: '100%'
+  widthStar: '100%',
+  //ThemeButton
+  themeButtonColor: '#fff',
+  themeBackgroundColor: '#000'
 };
